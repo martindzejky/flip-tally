@@ -34,6 +34,15 @@
       input.select();
     }
   });
+
+  // The name is already committed live via `oninput`, so submitting just means
+  // dismissing the field. Blurring drops focus and hides the mobile keyboard.
+  function onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      input?.blur();
+    }
+  }
 </script>
 
 <li
@@ -47,6 +56,7 @@
     type="text"
     value={player.name}
     oninput={(e) => onRename(e.currentTarget.value)}
+    onkeydown={onKeydown}
     enterkeyhint="done"
     aria-label="Player name"
     placeholder="Player name"
