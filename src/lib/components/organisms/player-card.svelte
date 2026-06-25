@@ -43,11 +43,11 @@
 
     {#if isLeader}
       <span
-        class="inline-flex shrink-0 text-gold"
+        class="crown-leader inline-flex shrink-0 text-gold"
         role="img"
         aria-label="Leading"
       >
-        <Crown class="crown-leader" size={30} aria-hidden="true" />
+        <Crown size={30} aria-hidden="true" />
       </span>
     {/if}
   </div>

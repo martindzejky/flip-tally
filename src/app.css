@@ -170,8 +170,10 @@
 /*
  * Leader crown: a looping pop (scale) with a slower, out-of-sync sway
  * (rotate). Uses the individual `scale`/`rotate` properties so the two run
- * independently without clobbering each other. Transform-only, so it never
- * affects layout or covers neighbouring controls.
+ * independently without clobbering each other. Applied to the wrapping
+ * <span> (an HTML element) rather than the inline <svg>, since individual
+ * transform properties don't render reliably on SVG nodes. Transform-only,
+ * so it never affects layout or covers neighbouring controls.
  */
 @keyframes crown-pop {
   0%,
