@@ -3,6 +3,8 @@
   import { colorClasses } from '$lib/player-colors';
   import { total, type Player } from '$lib/state/game.svelte';
   import { Crown, Plus } from '@lucide/svelte';
+  import { onMount } from 'svelte';
+  import { prefersReducedMotion } from 'svelte/motion';
 
   type Props = {
     player: Player;
@@ -15,6 +17,14 @@
 
   const color = $derived(colorClasses(player.colorIndex));
   const sum = $derived(total(player));
+
+  // Only pop in chips added after the first paint, so existing scores don't all
+  // animate when the page mounts (or on route navigation).
+  let mounted = $state(false);
+  onMount(() => {
+    mounted = true;
+  });
+  const animateChips = $derived(mounted && !prefersReducedMotion.current);
 </script>
 
 <article
@@ -33,10 +43,11 @@
 
     {#if isLeader}
       <span
-        class="inline-flex items-center gap-1 rounded-full bg-gold px-2.5 py-1 text-sm font-semibold text-foreground"
+        class="crown-leader inline-flex shrink-0 text-gold"
+        role="img"
+        aria-label="Leading"
       >
-        <Crown size={16} aria-hidden="true" />
-        Lead
+        <Crown size={30} aria-hidden="true" />
       </span>
     {/if}
   </div>
@@ -67,7 +78,12 @@
   {#if player.scores.length > 0}
     <div class="mt-3 flex flex-wrap gap-1.5">
       {#each player.scores as score, i (i)}
-        <ScoreChip value={score} round={i + 1} onclick={() => onEditEntry(i)} />
+        <ScoreChip
+          value={score}
+          round={i + 1}
+          animateIn={animateChips}
+          onclick={() => onEditEntry(i)}
+        />
       {/each}
     </div>
   {/if}

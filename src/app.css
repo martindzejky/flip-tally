@@ -143,3 +143,63 @@
     cursor: not-allowed;
   }
 }
+
+/*
+ * Playful motion. All looping/route motion is opt-in via
+ * `prefers-reduced-motion: no-preference`, so reduced-motion users get a calm,
+ * static UI.
+ */
+
+/* Simple cross-fade between routes (View Transitions API, see +layout.svelte). */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 220ms;
+    animation-timing-function: ease;
+  }
+}
+
+/* Reduced motion: cut the route cross-fade entirely. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/*
+ * Leader crown: a looping pop (scale) with a slower, out-of-sync sway
+ * (rotate). Uses the individual `scale`/`rotate` properties so the two run
+ * independently without clobbering each other. Applied to the wrapping
+ * <span> (an HTML element) rather than the inline <svg>, since individual
+ * transform properties don't render reliably on SVG nodes. Transform-only,
+ * so it never affects layout or covers neighbouring controls.
+ */
+@keyframes crown-pop {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.18;
+  }
+}
+
+@keyframes crown-sway {
+  0%,
+  100% {
+    rotate: -8deg;
+  }
+  50% {
+    rotate: 8deg;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .crown-leader {
+    transform-origin: center;
+    animation:
+      crown-pop 1.3s ease-in-out infinite,
+      crown-sway 2.4s ease-in-out infinite;
+  }
+}
