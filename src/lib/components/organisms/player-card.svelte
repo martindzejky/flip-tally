@@ -52,7 +52,7 @@
     {/if}
   </div>
 
-  <div class="mt-1 flex items-end justify-between gap-3">
+  <div class="mt-3 flex items-end justify-between gap-3">
     <div class="flex items-baseline gap-2">
       <span class="font-heading text-5xl font-bold tabular-nums">{sum}</span>
       <span class="text-sm text-muted">
