@@ -6,8 +6,12 @@
  * to the sheet's grab area (the handle / header); vertical drags are reported
  * back through `onMove`/`onEnd` so the component owns the visual offset.
  *
+ * The move/up listeners live on `window` (added on pointer-down, removed on
+ * release) rather than on the node, so the gesture keeps tracking even when the
+ * pointer leaves the small handle — which is what happens on a fast flick.
+ *
  * The action only tracks downward movement (a sheet can't be dragged up past
- * its resting spot) and ignores gestures that are mostly horizontal, leaving
+ * its resting spot) and bails on gestures that are mostly horizontal, leaving
  * those to the browser / system (e.g. iOS edge-swipe back).
  */
 
@@ -20,6 +24,9 @@ export type DragDismissParams = {
   enabled?: boolean;
 };
 
+// Movement (px) before the gesture's direction is judged.
+const DIRECTION_THRESHOLD = 6;
+
 export function dragDismiss(node: HTMLElement, params: DragDismissParams) {
   let current = params;
   let startX = 0;
@@ -31,13 +38,20 @@ export function dragDismiss(node: HTMLElement, params: DragDismissParams) {
 
   function onPointerDown(event: PointerEvent) {
     if (current.enabled === false) return;
-    // Ignore secondary mouse buttons; primary button / touch / pen only.
+    // Primary button / touch / pen only; ignore secondary mouse buttons.
     if (event.button !== 0) return;
 
     startX = event.clientX;
     startY = event.clientY;
     tracking = true;
     committed = false;
+
+    // Stop a mouse-drag from selecting the handle/header text.
+    event.preventDefault();
+
+    window.addEventListener('pointermove', onPointerMove, { passive: false });
+    window.addEventListener('pointerup', endGesture);
+    window.addEventListener('pointercancel', endGesture);
   }
 
   function onPointerMove(event: PointerEvent) {
@@ -47,17 +61,20 @@ export function dragDismiss(node: HTMLElement, params: DragDismissParams) {
     const dy = event.clientY - startY;
 
     if (!committed) {
-      // Wait for a small threshold before deciding the gesture's direction.
-      if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+      if (
+        Math.abs(dx) < DIRECTION_THRESHOLD &&
+        Math.abs(dy) < DIRECTION_THRESHOLD
+      )
+        return;
       if (Math.abs(dy) <= Math.abs(dx)) {
-        // Horizontal or ambiguous — let the browser handle it, stop tracking.
-        tracking = false;
+        // Horizontal or ambiguous — let the browser keep it, stop tracking.
+        cleanup();
         return;
       }
       committed = true;
-      node.setPointerCapture(event.pointerId);
     }
 
+    event.preventDefault();
     // Only downward drags move the sheet; clamp upward pull to 0.
     current.onMove(Math.max(0, dy));
   }
@@ -65,17 +82,20 @@ export function dragDismiss(node: HTMLElement, params: DragDismissParams) {
   function endGesture(event: PointerEvent) {
     if (!tracking) return;
     const wasCommitted = committed;
+    const dy = event.clientY - startY;
+    cleanup();
+    if (wasCommitted) current.onEnd(Math.max(0, dy));
+  }
+
+  function cleanup() {
     tracking = false;
     committed = false;
-    if (node.hasPointerCapture(event.pointerId))
-      node.releasePointerCapture(event.pointerId);
-    if (wasCommitted) current.onEnd(Math.max(0, event.clientY - startY));
+    window.removeEventListener('pointermove', onPointerMove);
+    window.removeEventListener('pointerup', endGesture);
+    window.removeEventListener('pointercancel', endGesture);
   }
 
   node.addEventListener('pointerdown', onPointerDown);
-  node.addEventListener('pointermove', onPointerMove);
-  node.addEventListener('pointerup', endGesture);
-  node.addEventListener('pointercancel', endGesture);
 
   return {
     update(next: DragDismissParams) {
@@ -83,9 +103,7 @@ export function dragDismiss(node: HTMLElement, params: DragDismissParams) {
     },
     destroy() {
       node.removeEventListener('pointerdown', onPointerDown);
-      node.removeEventListener('pointermove', onPointerMove);
-      node.removeEventListener('pointerup', endGesture);
-      node.removeEventListener('pointercancel', endGesture);
+      cleanup();
     },
   };
 }
