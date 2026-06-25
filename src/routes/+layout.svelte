@@ -10,6 +10,12 @@
   onNavigate((navigation) => {
     if (!document.startViewTransition) return;
 
+    // Skip the transition for back/forward navigations (`popstate`), including
+    // the iOS edge-swipe back gesture. The browser already runs its own native
+    // page animation there, and layering our cross-fade on top of it causes a
+    // visible "pop". Button/link navigations still cross-fade.
+    if (navigation.type === 'popstate') return;
+
     return new Promise((resolve) => {
       document.startViewTransition(async () => {
         resolve();

@@ -12,11 +12,27 @@
     newGame,
     removeEntry,
     resetScores,
+    total,
   } from '$lib/state/game.svelte';
   import { goto } from '$app/navigation';
   import { MoreVertical, RotateCcw, Trash2 } from '@lucide/svelte';
+  import { flip } from 'svelte/animate';
+  import { prefersReducedMotion } from 'svelte/motion';
 
   let menuOpen = $state(false);
+
+  // Standings: highest total first, ties keep their original join order so
+  // cards only move when scores actually change the ranking. Sorting a copy
+  // (with the join index captured first) leaves the stored roster untouched.
+  const standings = $derived(
+    game.players
+      .map((player, index) => ({ player, index }))
+      .sort((a, b) => total(b.player) - total(a.player) || a.index - b.index)
+      .map((entry) => entry.player),
+  );
+
+  // FLIP handles the reorder slide; disabled for reduced-motion users.
+  const flipDuration = $derived(prefersReducedMotion.current ? 0 : 320);
 
   let sheetOpen = $state(false);
   let activeId = $state<string | null>(null);
@@ -140,13 +156,15 @@
     </div>
   {:else}
     <div class="flex flex-col gap-3">
-      {#each game.players as player (player.id)}
-        <PlayerCard
-          {player}
-          isLeader={leaders.includes(player.id)}
-          onAdd={() => openAdd(player.id)}
-          onEditEntry={(index) => openEdit(player.id, index)}
-        />
+      {#each standings as player (player.id)}
+        <div animate:flip={{ duration: flipDuration }}>
+          <PlayerCard
+            {player}
+            isLeader={leaders.includes(player.id)}
+            onAdd={() => openAdd(player.id)}
+            onEditEntry={(index) => openEdit(player.id, index)}
+          />
+        </div>
       {/each}
     </div>
   {/if}

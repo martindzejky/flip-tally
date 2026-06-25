@@ -77,17 +77,24 @@ Signatures and states:
   clear focus ring. Touch targets never below 48px.
 - **Player card** (play screen) — color band/dot, name, large total, leader crown
   (gold) when tied for the lead, wrap row of round chips, prominent add control.
+  Cards are stacked in standings order (highest total first) and slide on reorder.
 - **Score chip** — a single round's points; tappable to edit; tabular numerals.
 - **Keypad** — large 3-column digit grid, backspace, sign toggle; on-screen so the OS
   keyboard never covers the table.
 - **Score sheet** — bottom sheet with the value display + keypad; backdrop and
-  safe-area aware; confirm / (edit: delete + save) / cancel.
+  safe-area aware; confirm / (edit: delete + save) / cancel. The grab handle is a
+  real affordance: drag the sheet down past a short threshold to dismiss it
+  (Pointer Events, so touch / pen / mouse all work), and it eases back otherwise.
 
 ## Do / Don't
 
 - **Do** keep the current leader obvious with the gold crown and a colored ring.
 - **Do** make the running total the largest element on each player card.
+- **Do** rank the play screen by score (highest first), animating the reorder
+  with a FLIP slide so the standings are always readable and the movement is
+  legible. Ties hold their join order; respect `prefers-reduced-motion`.
 - **Do** enter scores with the on-screen keypad, not the OS keyboard.
 - **Don't** spend gold on anything but the leader highlight.
-- **Don't** reorder players by score — keep join order so cards never jump mid-game.
+- **Don't** reorder the setup roster by score — only the play screen ranks by
+  total; the players screen keeps the hand-set join order.
 - **Don't** add fake card/dashboard chrome; ship real, tappable controls.
