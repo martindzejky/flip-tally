@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Delete } from '@lucide/svelte';
+  import { MediaQuery } from 'svelte/reactivity';
 
   type Props = {
     /** Raw entered string, e.g. "12" or "-3". Bindable. */
@@ -8,15 +9,22 @@
     allowNegative?: boolean;
     /** Max number of digits (excluding sign). */
     maxDigits?: number;
+    /** Called when Enter is pressed on a physical keyboard (non-touch only). */
+    onEnter?: () => void;
   };
 
   let {
     value = $bindable(''),
     allowNegative = true,
     maxDigits = 4,
+    onEnter,
   }: Props = $props();
 
   const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+  // Touch devices keep using the on-screen keys exclusively; non-touch
+  // ("desktop") devices also accept physical-keyboard input.
+  const touch = new MediaQuery('(pointer: coarse)');
 
   function digitCount(s: string): number {
     return s.replace('-', '').length;
@@ -41,6 +49,23 @@
     if (value === '-') value = '';
   }
 
+  function handleKeydown(e: KeyboardEvent) {
+    if (touch.current || e.metaKey || e.ctrlKey || e.altKey) return;
+
+    if (e.key >= '0' && e.key <= '9') {
+      pressDigit(e.key);
+    } else if (e.key === 'Backspace') {
+      backspace();
+    } else if (allowNegative && (e.key === '-' || e.key === '+')) {
+      toggleSign();
+    } else if (e.key === 'Enter') {
+      onEnter?.();
+    } else {
+      return;
+    }
+    e.preventDefault();
+  }
+
   const keyClass = [
     'flex min-h-16 items-center justify-center rounded-2xl bg-surface text-2xl font-semibold font-heading tabular-nums',
     'border border-border shadow-sm transition select-none touch-manipulation',
@@ -48,6 +73,8 @@
     'motion-safe:active:scale-95',
   ];
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <div class="grid grid-cols-3 gap-2">
   {#each digits as d (d)}
