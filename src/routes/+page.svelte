@@ -16,21 +16,41 @@
     canContinue = hasSavedGame();
   });
 
-  // Decorative hero cards — number + player color + tilt.
+  // Decorative hero cards — number + player color + tilt. Each card gets the same
+  // pop + sway as the leader crown, with staggered negative delays so they start
+  // out of sync (a faked "random start" that stays deterministic for SSR).
   const heroCards = [
     {
       n: 7,
       color: 'bg-p-teal',
       rotate: '-rotate-12',
       shift: '-translate-x-2 translate-y-2',
+      popDelay: '-0.1s',
+      swayDelay: '-1.6s',
     },
-    { n: 3, color: 'bg-p-coral', rotate: 'rotate-6', shift: 'translate-y-1' },
-    { n: 12, color: 'bg-p-gold', rotate: '-rotate-3', shift: '-translate-y-3' },
+    {
+      n: 3,
+      color: 'bg-p-coral',
+      rotate: 'rotate-6',
+      shift: 'translate-y-1',
+      popDelay: '-0.8s',
+      swayDelay: '-0.3s',
+    },
+    {
+      n: 12,
+      color: 'bg-p-gold',
+      rotate: '-rotate-3',
+      shift: '-translate-y-3',
+      popDelay: '-1.0s',
+      swayDelay: '-2.1s',
+    },
     {
       n: 5,
       color: 'bg-p-plum',
       rotate: 'rotate-12',
       shift: 'translate-x-1 translate-y-2',
+      popDelay: '-0.5s',
+      swayDelay: '-1.0s',
     },
   ];
 
@@ -86,15 +106,16 @@
   >
     <div class="mb-8 flex items-end justify-center gap-2" aria-hidden="true">
       {#each heroCards as card (card.n)}
-        <div
-          class={[
-            'flex aspect-[3/4] w-16 items-center justify-center rounded-2xl border-4 border-foreground font-heading text-3xl font-bold text-foreground shadow-lg sm:w-20 sm:text-4xl',
-            card.color,
-            card.rotate,
-            card.shift,
-          ]}
-        >
-          {card.n}
+        <div class={[card.rotate, card.shift]}>
+          <div
+            class={[
+              'hero-card-anim flex aspect-[3/4] w-16 items-center justify-center rounded-2xl border-4 border-foreground font-heading text-3xl font-bold text-foreground shadow-lg sm:w-20 sm:text-4xl',
+              card.color,
+            ]}
+            style="--pop-delay: {card.popDelay}; --sway-delay: {card.swayDelay};"
+          >
+            {card.n}
+          </div>
         </div>
       {/each}
     </div>

@@ -202,4 +202,16 @@
       crown-pop 1.3s ease-in-out infinite,
       crown-sway 2.4s ease-in-out infinite;
   }
+
+  /* Same pop + sway as the leader crown, applied to the hero cards. Per-card
+     negative delays (set inline) stagger the start so they animate out of sync.
+     The sway lives on this inner element so it composes with the card's static
+     tilt on the wrapper instead of overriding it. */
+  .hero-card-anim {
+    transform-origin: center;
+    animation:
+      crown-pop 1.3s ease-in-out infinite,
+      crown-sway 2.4s ease-in-out infinite;
+    animation-delay: var(--pop-delay, 0s), var(--sway-delay, 0s);
+  }
 }
