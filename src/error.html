@@ -1,17 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="color-scheme: light dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#2ba8a2" />
+    <meta
+      name="theme-color"
+      content="#fff8e7"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#181510"
+      media="(prefers-color-scheme: dark)"
+    />
     <link rel="icon" href="/favicon.png" />
     <title>Something went wrong</title>
     <meta name="description" content="An unexpected error occurred." />
   </head>
   <body
     style="
-      background-color: #fff8e7;
-      color: #23201b;
+      background-color: light-dark(#fff8e7, #181510);
+      color: light-dark(#23201b, #f7f2e8);
       font:
         18px system-ui,
         sans-serif;

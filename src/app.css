@@ -18,31 +18,42 @@
   --color-*: initial;
   --font-*: initial;
 
-  /* Surfaces and text */
-  --color-background: #fff8e7;
-  --color-surface: #ffffff;
-  --color-surface-sunken: #f3e9cf;
-  --color-border: #e7d9b5;
-  --color-foreground: #23201b;
-  --color-muted: #6b6150;
+  /* Surfaces and text — light-dark() follows the browser color scheme. */
+  --color-background: light-dark(#fff8e7, #181510);
+  --color-surface: light-dark(#ffffff, #242018);
+  --color-surface-sunken: light-dark(#f3e9cf, #1e1b15);
+  --color-border: light-dark(#e7d9b5, #3a3428);
+  --color-foreground: light-dark(#23201b, #f7f2e8);
+  --color-muted: light-dark(#6b6150, #a89a82);
   --color-white: #ffffff;
 
   /* Brand accents (Flip 7) */
-  --color-primary: #2ba8a2;
-  --color-primary-dark: color-mix(in oklch, var(--color-primary), black 10%);
-  --color-primary-darker: color-mix(in oklch, var(--color-primary), black 20%);
-  /* Darker teal that meets AA as text/icons on the light canvas. */
-  --color-primary-strong: #1c7a74;
-  --color-coral: #ef6c4a;
-  --color-coral-dark: color-mix(in oklch, var(--color-coral), black 10%);
-  /* Darker coral that meets AA as text/icons on the light canvas. */
-  --color-coral-strong: #c44a2b;
+  --color-primary: light-dark(#2ba8a2, #3ec8c0);
+  --color-primary-dark: light-dark(
+    color-mix(in oklch, #2ba8a2, black 10%),
+    color-mix(in oklch, #3ec8c0, white 10%)
+  );
+  --color-primary-darker: light-dark(
+    color-mix(in oklch, #2ba8a2, black 20%),
+    color-mix(in oklch, #3ec8c0, white 18%)
+  );
+  /* Meets AA as text/icons on the canvas in each scheme. */
+  --color-primary-strong: light-dark(#1c7a74, #72ddd6);
+  --color-coral: light-dark(#ef6c4a, #f47d5e);
+  --color-coral-dark: light-dark(
+    color-mix(in oklch, #ef6c4a, black 10%),
+    color-mix(in oklch, #f47d5e, white 10%)
+  );
+  --color-coral-strong: light-dark(#c44a2b, #f9a088);
   --color-gold: #ffd23f;
-  --color-gold-dark: color-mix(in oklch, var(--color-gold), black 12%);
+  --color-gold-dark: light-dark(
+    color-mix(in oklch, #ffd23f, black 12%),
+    color-mix(in oklch, #ffd23f, white 8%)
+  );
 
   /* Semantic */
-  --color-error: #d6443a;
-  --color-success: #2f9e57;
+  --color-error: light-dark(#d6443a, #e8564c);
+  --color-success: light-dark(#2f9e57, #42c06e);
 
   /* Player ramp — drawn from the real Flip 7 number-card colors */
   --color-p-teal: #2ba8a2;
@@ -76,6 +87,7 @@
    * 20px font size on 1280px viewport
    */
   html {
+    color-scheme: light dark;
     font-size: 16px;
     font-size: clamp(16px, calc(16px + 4 * ((100vw - 640px) / 640)), 20px);
     font-family: var(--font-main);

@@ -7,9 +7,14 @@ references token names.
 ## Overview
 
 Retro-playful and tactile — the UI should feel like the games it scores. A warm cream
-canvas, bright teal/coral/gold accents, chunky rounded cards, and big confident
-numbers. Calm to operate, fun to look at. The emotional target: picking up a
-well-made game piece.
+canvas (or a warm charcoal canvas in dark mode), bright teal/coral/gold accents,
+chunky rounded cards, and big confident numbers. Calm to operate, fun to look at.
+The emotional target: picking up a well-made game piece.
+
+**Color scheme:** follows the browser / OS setting via `prefers-color-scheme`. No
+in-app toggle. Tokens use CSS `light-dark()` in `src/app.css` so surfaces, text,
+and accent-strong variants adapt automatically; player `p-*` ramp stays the same
+vibrant Flip 7 hues in both schemes.
 
 ## Colors
 
@@ -18,14 +23,16 @@ Warm neutral canvas, one teal primary, coral and gold as supporting accents, and
 
 | Role            | Token                        | Use                                             |
 | --------------- | ---------------------------- | ----------------------------------------------- |
-| Canvas          | `background`                 | App background (warm cream)                     |
+| Canvas          | `background`                 | App background (warm cream / warm charcoal)     |
 | Card surface    | `surface`                    | Cards, sheets, inputs                           |
 | Sunken surface  | `surface-sunken`             | Inset wells, keypad, chip tracks                |
 | Border          | `border`                     | Hairlines and card outlines                     |
 | Text            | `foreground`                 | Primary text and numerals                       |
 | Muted text      | `muted`                      | Labels, captions, secondary text                |
 | Primary         | `primary` (+`-dark/-darker`) | Primary actions, links, focus ring              |
+| Primary strong  | `primary-strong`             | Links/icons on canvas (AA in each scheme)       |
 | Coral           | `coral`                      | Secondary action / playful accent               |
+| Coral strong    | `coral-strong`               | Coral icons on canvas (AA in each scheme)       |
 | Gold            | `gold` (+`-dark`)            | Winner crown + leader highlight only            |
 | Player ramp     | `p-*` (12 tokens)            | Per-player identity (round-robin by join order) |
 | Error / Success | `error` / `success`          | Destructive actions / confirmations             |
