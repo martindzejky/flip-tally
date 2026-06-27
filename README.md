@@ -61,9 +61,8 @@ skipping `localhost` and Railway `*.up.railway.app` preview domains.
 
 ## Reference docs
 
-| File                           | Contents                                             |
-| ------------------------------ | ---------------------------------------------------- |
-| [`BRAND.md`](./BRAND.md)       | Brand voice, personality, microcopy                  |
-| [`DESIGN.md`](./DESIGN.md)     | Visual system: color, type, layout, shape            |
-| [`TEMPLATE.md`](./TEMPLATE.md) | Upstream template recipe (setup + optional features) |
-| `.cursor`                      | AI agent rules and cloud environment                 |
+| File                       | Contents                                  |
+| -------------------------- | ----------------------------------------- |
+| [`BRAND.md`](./BRAND.md)   | Brand voice, personality, microcopy       |
+| [`DESIGN.md`](./DESIGN.md) | Visual system: color, type, layout, shape |
+| `.cursor`                  | AI agent rules and cloud environment      |

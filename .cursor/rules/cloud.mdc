@@ -11,30 +11,12 @@ Read global user rules first: `~/.cursor/rules/cloud-env.mdc`.
 
 ## Environment
 
-- Secrets usually come from the Cursor dashboard.
-- If env vars fail, notify the user and stop.
+- Flip Tally has no required environment variables (see `.env.example`).
 - **Do not** create `.env` files in the cloud.
-- All vars from `.env.example` must be set in the dashboard (use placeholders where needed; empty strings are not supported).
 - If `pnpm check` misses `$env/static/*` exports, run `pnpm sync`.
 
-## Cloud-only runtime (only if the project uses local services)
+## Runtime
 
-- Start Docker daemon before compose: `sudo dockerd &>/tmp/dockerd.log &`, then wait ~3s, then `docker compose up -d` (see README for services).
-- Wait for Postgres `healthy` in `docker compose ps` before migrations or any worker.
-- On a fresh Postgres volume, `docker compose down -v` may be needed before first migrate.
-- Run a background worker in a separate process if the project has one (see README).
+- No local Docker services, database, or background workers — install with `pnpm install`,
+  then `pnpm dev` or `pnpm build` as needed.
 - First Vite SSR request can take ~15–18s; later requests are fast.
-
-## Database migrations (non-interactive, only if the project uses Prisma)
-
-`pnpm db:migrate:dev` prompts for a migration name. In cloud agents and CI, use:
-
-```sh
-# Create migration SQL from pending schema changes (no apply)
-pnpm exec prisma migrate dev --name <descriptive_snake_case_name> --create-only
-
-# Apply pending migrations
-pnpm db:migrate:deploy
-```
-
-Use a short, descriptive migration name (e.g. `add_contact_source`, `drop_legacy_column`).

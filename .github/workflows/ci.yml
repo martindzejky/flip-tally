@@ -4,8 +4,7 @@ on:
   - push
   - pull_request
 
-# When the app imports from `$env/static/*`, add an `env:` block here with a
-# placeholder for every key (see TEMPLATE.md §5). The base template imports none.
+# Flip Tally imports no `$env/static/*` keys; no env block needed.
 
 permissions:
   contents: read
