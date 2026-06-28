@@ -5,7 +5,7 @@
  *   3. @theme { } — design tokens (kept in sync with DESIGN.md)
  *   4. @layer base — fluid typography, base colors, global focus styles
  *
- * Visual system: retro-playful board-game look grounded in the Flip 7 identity
+ * Visual system: retro-playful board-game look grounded in the Flip 7 identity
  * (teal / coral / gold on warm cream). See DESIGN.md.
  */
 
@@ -27,7 +27,7 @@
   --color-muted: light-dark(#6b6150, #a89a82);
   --color-white: #ffffff;
 
-  /* Brand accents (Flip 7) */
+  /* Brand accents (Flip 7) */
   --color-primary: light-dark(#2ba8a2, #3ec8c0);
   --color-primary-dark: light-dark(
     color-mix(in oklch, #2ba8a2, black 10%),
@@ -55,7 +55,7 @@
   --color-error: light-dark(#d6443a, #e8564c);
   --color-success: light-dark(#2f9e57, #42c06e);
 
-  /* Player ramp — drawn from the real Flip 7 number-card colors */
+  /* Player ramp — drawn from the real Flip 7 number-card colors */
   --color-p-teal: #2ba8a2;
   --color-p-coral: #ef6c4a;
   --color-p-gold: #f4b400;

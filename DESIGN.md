@@ -14,12 +14,12 @@ The emotional target: picking up a well-made game piece.
 **Color scheme:** follows the browser / OS setting via `prefers-color-scheme`. No
 in-app toggle. Tokens use CSS `light-dark()` in `src/app.css` so surfaces, text,
 and accent-strong variants adapt automatically; player `p-*` ramp stays the same
-vibrant Flip 7 hues in both schemes.
+vibrant Flip&nbsp;7 hues in both schemes.
 
 ## Colors
 
 Warm neutral canvas, one teal primary, coral and gold as supporting accents, and a
-12-color player ramp from Flip 7's number cards. Numbers and crowns earn the gold.
+12-color player ramp from Flip&nbsp;7's number cards. Numbers and crowns earn the gold.
 
 | Role            | Token                        | Use                                             |
 | --------------- | ---------------------------- | ----------------------------------------------- |

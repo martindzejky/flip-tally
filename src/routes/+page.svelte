@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import Button from '$lib/components/atoms/button.svelte';
+  import { FLIP_7, THE_OP } from '$lib/brand-names';
   import { hasSavedGame } from '$lib/state/game.svelte';
   import {
     Lock,
@@ -92,10 +93,10 @@
 </script>
 
 <svelte:head>
-  <title>Flip Tally — a score pad for Flip 7</title>
+  <title>Flip Tally — a score pad for {FLIP_7}</title>
   <meta
     name="description"
-    content="A colorful, offline score pad for Flip 7 and other round-based board games. Add players, tally each round, and see the winner — right on your phone."
+    content="A colorful, offline score pad for {FLIP_7} and other round-based board games. Add players, tally each round, and see the winner — right on your phone."
   />
 </svelte:head>
 
@@ -128,7 +129,7 @@
     </p>
     <p class="mx-auto mt-3 max-w-md text-lg text-pretty text-muted">
       A colorful, offline score pad for <strong class="text-foreground"
-        >Flip 7</strong
+        >{FLIP_7}</strong
       >
       and other round-based games. Set up the table, tap in each round, watch the
       winner appear.
@@ -216,7 +217,7 @@
   >
     <p>Flip Tally — a free, open score pad for game night.</p>
     <p class="mt-1">
-      Unofficial companion. Not affiliated with The Op or Flip 7.
+      Unofficial companion. Not affiliated with {THE_OP} or {FLIP_7}.
     </p>
   </footer>
 </main>
