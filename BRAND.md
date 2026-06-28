@@ -8,7 +8,7 @@ Brand kit for Flip Tally. Pairs with `DESIGN.md` (visuals) and `README.md` (prod
 
 ### Overview
 
-Flip Tally is a pocket score pad for Flip 7 and other round-based table games. You
+Flip Tally is a pocket score pad for Flip&nbsp;7 and other round-based table games. You
 sit down, type in who's playing, and after each round you tap in everyone's points.
 It adds up the totals and shows who's ahead. No setup, no account, no internet — the
 game lives in your browser and installs to your home screen like an app. It replaces
@@ -17,8 +17,8 @@ the scrap of paper that always goes missing halfway through game night.
 ### Positioning
 
 A single-purpose tool, not a game and not a rules engine. It does not deal cards,
-enforce Flip 7's rules, or track stats over time. It is the fastest path from "round's
-over" to "here's the score." Unofficial companion — not affiliated with The Op.
+enforce Flip&nbsp;7's rules, or track stats over time. It is the fastest path from "round's
+over" to "here's the score." Unofficial companion — not affiliated with The&nbsp;Op.
 
 ### Personality
 
@@ -82,11 +82,11 @@ plenty, and only on a win). Numbers are the loudest thing on screen, not the wor
 ## Visual
 
 Retro-playful board-game look: warm cream canvas, teal / coral / gold accents, and a
-rainbow of per-player colors borrowed from Flip 7's number cards. Rounded, chunky
+rainbow of per-player colors borrowed from Flip&nbsp;7's number cards. Rounded, chunky
 "game-piece" shapes and a friendly rounded display face. See `DESIGN.md` for tokens,
 type, layout, and shape rules.
 
 ## Name
 
-"Flip Tally" — _flip_ nods to Flip 7's flip-a-card mechanic; _tally_ is all the app
+"Flip Tally" — _flip_ nods to Flip&nbsp;7's flip-a-card mechanic; _tally_ is all the app
 does: add up the rounds.

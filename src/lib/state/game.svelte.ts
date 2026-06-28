@@ -21,7 +21,7 @@ export type Player = {
   scores: number[];
 };
 
-/** Player identity colors, drawn from the Flip 7 number-card palette. */
+/** Player identity colors, drawn from the Flip\u00A07 number-card palette. */
 export const PLAYER_COLORS = [
   'p-teal',
   'p-coral',

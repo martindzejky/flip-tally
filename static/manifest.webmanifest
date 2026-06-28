@@ -1,7 +1,7 @@
 {
   "name": "Flip Tally",
   "short_name": "Flip Tally",
-  "description": "A colorful, offline score pad for Flip 7 and other round-based board games.",
+  "description": "A colorful, offline score pad for Flip\u00A07 and other round-based board games.",
   "id": "/",
   "start_url": "/",
   "scope": "/",

@@ -1,11 +1,11 @@
 # Flip Tally
 
-A colorful, offline score pad for **Flip 7** and other round-based board games. Add
+A colorful, offline score pad for **Flip&nbsp;7** and other round-based board games. Add
 the players at your table, tap in each round's points, and watch the totals and the
 current leader update. No database, no account — everything is stored locally in your
 browser, and the app installs to your phone's home screen.
 
-Unofficial companion. Not affiliated with The Op or Flip 7.
+Unofficial companion. Not affiliated with The&nbsp;Op or Flip&nbsp;7.
 
 ## Prerequisites
 
